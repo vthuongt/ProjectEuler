@@ -24,15 +24,15 @@ def nextNumbers(S, Circ):
 
     if Circ[-1] == False:
         nS += [getNextCircledNumber(S,Circ)]   
-        Circ += [True]
+        nCirc += [True]
     else:
         newSuncirc = S[len(S) - Circ.count(True)]
         numCirc = f(newSuncirc)
         for i in range(0,numCirc-1):
             nS+= [getNextCircledNumber(S,Circ)]
-            Circ += [True]
+            nCirc += [True]
         nS+= [newSuncirc]
-        Circ+= [False]        
+        nCirc+= [False]        
         
     return [nS,Circ]
 
