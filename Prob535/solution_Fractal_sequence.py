@@ -5,36 +5,30 @@ Created on 15.02.2016
 '''
 # fractal sequence
 import math
+import cProfile
 def f(n):
     return math.floor(n**0.5)
 """
 for i in range(1,10**2):
     print(str(i)+": "+ str(f(i)))
 """
-
-def getNextCircledNumber(S,Circ):
-    #iS,    iCirc
-    for i in range(-1,-len(S)-1,-1):
-        if Circ[i]:
-            return S[i]+1
-    
-
-def nextNumbers(S, Circ):
-    nS,nCirc = S, Circ
-
+ 
+def nextNumbers(S, Circ, numMarked):
     if Circ[-1] == False:
-        nS += [getNextCircledNumber(S,Circ)]   
-        nCirc += [True]
+        S += [numMarked+1]   
+        Circ += [True]
+        numMarked+=1
     else:
-        newSuncirc = S[len(S) - Circ.count(True)]
+        newSuncirc = S[len(S) - numMarked]
         numCirc = f(newSuncirc)
         for i in range(0,numCirc-1):
-            nS+= [getNextCircledNumber(S,Circ)]
-            nCirc += [True]
-        nS+= [newSuncirc]
-        nCirc+= [False]        
+            S+= [numMarked+1]
+            Circ += [True]
+            numMarked+=1
+        S+= [newSuncirc]
+        Circ+= [False]        
         
-    return [nS,Circ]
+    return [S,Circ,numMarked]
 
 def printing(S,Circ):
     for i in range(0,len(S)):
@@ -45,11 +39,44 @@ def printing(S,Circ):
     print()
 
 
-n = 10**18
-S,Circ  = [1],[True]
-while len(S)<n:
-    S,Circ = nextNumbers(S,Circ)
-
-#printing(S,Circ)
-print("T("+str(n)+")="+str(sum(S)))
-print("last 9 digits: "+str(sum(S))[-9:])
+def main1(n):
+    S,Circ, numMarked  = [1],[True],1
+    while len(S)<n:
+        S,Circ, numMarked = nextNumbers(S,Circ, numMarked)
+    
+    #print(str(n)+": "+str(n-numMarked))#, end='')
+    #printing(S,Circ)
+    print("T("+str(n)+")="+str(sum(S)))
+    #print("last 9 digits: "+str(sum(S))[-9:])
+    
+def main2(n):
+    S = [1]
+    i = 0
+    while len(S)<n:
+        i+=1
+        L=[]
+        counter = 0
+        for x in S:
+            num = f(x)
+            L +=list(range(counter+1,counter+num+1))
+            counter += num
+            L+=[x]
+        S = L.copy()
+        print(str(i)+": "+str(len(S)))
+    #printing2(S,n)
+    print("T("+str(n)+")="+str(sum(S[0:n])))
+    
+def printing2(S,n):
+    maxKnown = 0
+    for i in range(0,n):
+        if maxKnown < S[i]:
+            print("["+str(S[i])+"]",end=' ')
+            maxKnown+=1
+        else:
+            print(str(S[i]), end=' ')
+    print()
+        
+#cProfile.run('main1(10**6)')
+#cProfile.run('main2(10**9)')
+#for i in range(10**3,10**4):
+main2(10**9)
