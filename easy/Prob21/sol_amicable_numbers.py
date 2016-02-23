@@ -2,7 +2,7 @@ import math
 
 def getSumOfDiv(n):
     s = {1}
-    for i in range(1,math.floor(math.sqrt(n+1))):
+    for i in range(1,math.ceil(math.sqrt(n+1))):
         if n%i == 0:
             s |= {i,n//i}
     s -= {n}
