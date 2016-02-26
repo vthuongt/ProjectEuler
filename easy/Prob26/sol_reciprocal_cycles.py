@@ -34,7 +34,7 @@ for n in range(1,1000):
         cycleLenght[n]=temp[1]
         
 maxKey = max(cycleLenght.keys(), key = lambda x: cycleLenght[x])
-print("Lenght of longest cylce {} with denominator {}".format(cycleLenght[maxKey],maxKey))
+print("Length of longest cylce {} with denominator {}".format(cycleLenght[maxKey],maxKey))
 
 
     
