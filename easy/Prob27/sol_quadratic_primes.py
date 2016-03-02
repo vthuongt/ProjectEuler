@@ -48,4 +48,4 @@ print(maxKey)
 print(maxKey[0]*maxKey[1])
 print(maxLengths[maxKey])
 #print("longest consecutive prime numbers with coefficients"+ 
-      #"(a,b)={0} with {1} primes """.format(maxKey,maxLengths[maxKey]))
+#"(a,b)={0} with {1} primes """.format(maxKey,maxLengths[maxKey]))
